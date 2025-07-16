@@ -1,12 +1,26 @@
 import string
 
 def caesar_cipher_all_chars(text, shift, mode):
+    chars = string.printable  # All printable ASCII characters
+    result = ""
+
+    for char in text:
+        if char in chars:
+            index = chars.index(char)
+            if mode == "encrypt":
+                new_index = (index + shift) % len(chars)
+            elif mode == "decrypt":
+                new_index = (index - shift) % len(chars)
+            result += chars[new_index]
+        else:
+            result += char  # Leave non-printable characters unchanged
+
     return result
 
 def main():
     print("=== Caesar Cipher (All Characters) ===")
     message = input("Enter your message: ")
-    
+
     while True:
         try:
             shift = int(input("Enter shift value (e.g., 3): "))
